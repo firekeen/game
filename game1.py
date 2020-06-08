@@ -58,24 +58,27 @@ class Game:
             pygame.display.update()#
             
             
-        
+     #事件触发   
     def getEvent(self):
                 
         for event in pygame.event.get():
-            
+            #退出
             if event.type == pygame.QUIT:
                 self.endGame()
-                print('xiangshi')
+            #旋转角度
             if event.type == pygame.MOUSEBUTTONDOWN and 0<=event.pos[0]<=100 and 0<=event.pos[1]<=100:
                 Game.robot.rotateangel()
+            #是否移动
             if event.type == pygame.MOUSEBUTTONDOWN and 0<=event.pos[0]<=100 and 100<=event.pos[1]<=200: 
                 Game.robot.is_move()
-            if event.type == pygame.MOUSEBUTTONDOWN and 0<=event.pos[0]<=100 and 200<=event.pos[1]<=300: 
-                Game.screen = pygame.display.set_mode((800,600))
+            
+            #if event.type == pygame.MOUSEBUTTONDOWN and 0<=event.pos[0]<=100 and 200<=event.pos[1]<=300: 
+                #Game.screen = pygame.display.set_mode((800,600))
                 
     def endGame(self): 
         print('退出')
         pygame.quit()
+
                                                                                                                                              
 class Robot:
     
@@ -95,13 +98,13 @@ class Robot:
         self.angel = 0
         self.ismove = False
         
-        
+     #是否移动   
     def is_move(self):
         if self.ismove == True:
             self.ismove = False
         else:
             self.ismove = True
-           
+     #移动      
     def move(self):
         if self.ismove == True:
             if self.angel == 0:
@@ -114,13 +117,13 @@ class Robot:
                 self.rect.y += 59
             
         
-           
+     #逆时针旋转90度      
     def rotateangel(self):
             
             self.angel = self.angel+90
         
             
-
+    #显示
     def display(self):
         
         #self.image= pygame.image.load('image/robotrunr.png')
@@ -128,7 +131,7 @@ class Robot:
         #self.rotate()
         
          
-    
+    #旋转
     def rotate(self):
         
         
@@ -192,7 +195,7 @@ class Robot:
                 
                 pygame.display.update()
 
-    
+    #扫地动画
     def animotionscan(self):
         image = pygame.image.load('image/robotscan.png')
         rect = image.get_rect()
@@ -200,7 +203,7 @@ class Robot:
         Game.tick = pygame.time.Clock()
         for n in range(8):
             Game.tick.tick(3)
-            Game.screen.blit(image,(self.left,self.top),rect2)#这里给了3个实参，分别是图像，绘制的位置，绘制的截面框
+            Game.screen.blit(image,(self.left,self.top),rect2)
             rect2.x+=rect2.width
             if rect2.x> 392:
                 rect2.x = 0
